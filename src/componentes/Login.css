@@ -1,0 +1,47 @@
+.divContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+}
+
+.divGeneral {
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.5);
+    max-width: 500px; /* Modifica este valor según el tamaño deseado */
+    padding: 60px; /* Añadido para separación del borde */
+}
+
+.inputMail{
+    position: relative;
+    bottom: 30px;
+}
+
+.labelMail{
+    position: relative;
+    bottom: 50px;
+}
+
+
+.inputPassword{
+    position: relative;
+    bottom: 30px;
+}
+
+.labelPassword{
+    position: relative;
+    left:70px;
+    bottom:20px;
+}
+
+.texto{
+    position: relative;
+    bottom: 50px;
+}
+
+.error {
+    color: red;
+}
+
+.input-error {
+    border-color: red;
+}
