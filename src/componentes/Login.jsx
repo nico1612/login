@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import "./Login.css"
-import { validarUsuario } from "../helpers/validar"
+import { validarUsuario } from "../helpers/login"
 
 export const Login = () => {
     const [correo, setCorreo] = useState('')
