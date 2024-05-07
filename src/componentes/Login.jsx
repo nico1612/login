@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import "./Login.css"
+import { validarUsuario } from "../helpers/validar"
 
 export const Login = () => {
     const [correo, setCorreo] = useState('')
@@ -35,9 +36,13 @@ export const Login = () => {
         if (!password.match(passwordRegex)) {
             setPasswordError('La contraseña debe ser alfanumérica, con al menos una letra mayúscula y un carácter especial.')
         }
+        console.log(password)
+        console.log(!password.match(passwordRegex))
 
         if(emailError!=='' || passwordError!==''){
             return
+        }else{
+            validarUsuario(correo,password,setEmailError,setPasswordError)
         }
     }
 
