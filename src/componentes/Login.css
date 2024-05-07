@@ -45,3 +45,25 @@
 .input-error {
     border-color: red;
 }
+
+.password-input-container {
+    position: relative;
+}
+
+.password-input-container input {
+    padding-right: 30px;
+}
+
+.password-input-container .toggle-password {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.password-input-container .toggle-password:focus {
+    outline: none;
+}

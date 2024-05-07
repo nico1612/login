@@ -1,44 +1,54 @@
-import React, { useState } from "react"
-import "./Login.css"
-import { validarUsuario } from "../helpers/login"
+import React, { useState } from "react";
+import "./Login.css";
+import { validarUsuario } from "../helpers/login";
+import { Link } from "react-router-dom"
+
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const Login = () => {
-    const [correo, setCorreo] = useState('')
-    const [password, setPassword] = useState('')
-    const [emailError, setEmailError] = useState('')
-    const [passwordError, setPasswordError] = useState('')
+    const [correo, setCorreo] = useState("");
+    const [password, setPassword] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const onInputChange = (value, setValue, setError) => {
-        setValue(value)
-        setError('')
-    }
-
-    const handlePasswordChange = (value) => {
-        setPassword(value)
-        setPasswordError('')
-    }
-
-    const handleSubmit = () => {
+        setValue(value);
         if (correo.trim() === '') {
             setEmailError('Por favor, ingresa tu correo electrónico.')
+            return
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!correo.match(emailRegex)) {
             setEmailError('Por favor, ingresa una dirección de correo electrónico válida.')
+            return
         }
+        setError("");
 
+    };
+
+    const handlePasswordChange = (value) => {
+        setPassword(value);
+       
         if (password.trim() === '') {
             setPasswordError('Por favor ingrese su contraseña.')
+            return
         }
 
-        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9a-zA-Z]).{8,}$/;
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9a-zA-Z]).{7,}$/;
         if (!password.match(passwordRegex)) {
-            setPasswordError('La contraseña debe ser alfanumérica, con al menos una letra mayúscula y un carácter especial.')
+            setPasswordError('La contraseña debe ser alfanumérica, con al menos una letra mayúscula, un carácter especial y password mayor a 8.')
+            return
         }
-        console.log(password)
-        console.log(!password.match(passwordRegex))
+        setPasswordError("");
+    };
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword)
+    }
+
+    const handleSubmit = () => {
         if(emailError!=='' || passwordError!==''){
             return
         }else{
@@ -49,12 +59,13 @@ export const Login = () => {
     return (
         <div className="divContainer">
             <div className="divGeneral border border-dark">
-                <h1 className="texto">Iniciar sesión</h1>
+                <h1 className="texto">Login</h1>
+                {/*<span>New Here? </span> <Link to="/register">Register</Link>*/}
                 <div className="labelMail">
                     <label className="form-label">Mail</label>
                     <input
                         type="email"
-                        className={`form-control ${emailError ? 'input-error' : ''}`}
+                        className={`form-control ${emailError ? "input-error" : ""}`}
                         value={correo}
                         onChange={(e) => onInputChange(e.target.value, setCorreo, setEmailError)}
                     />
@@ -62,16 +73,22 @@ export const Login = () => {
                 </div>
                 <div className="inputPassword">
                     <label className="form-label">Password</label>
-                    <input
-                        type="password"
-                        className={`form-control ${passwordError ? 'input-error' : ''}`}
-                        aria-describedby="passwordHelpBlock"
-                        value={password}
-                        onChange={(e) => handlePasswordChange(e.target.value)}
-                    />
+                    <div className="password-input-container">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            className={`form-control ${passwordError ? "input-error" : ""}`}
+                            aria-describedby="passwordHelpBlock"
+                            value={password}
+                            onChange={(e) => handlePasswordChange(e.target.value)}
+                        />
+                        <button type="button" className="toggle-password" onClick={togglePasswordVisibility}>
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </button>
+                    </div>
                     {passwordError && <div className="error">{passwordError}</div>}
                 </div>
                 <button className="btn btn-primary" onClick={handleSubmit}>Login</button>
+                {/*<span>forgot your </span> <Link to="/password">password</Link>*/}
             </div>
         </div>
     )

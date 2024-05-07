@@ -62,7 +62,8 @@ export const Registro = () => {
     return (
         <div className="divContainer">
             <div className="divGeneral border border-dark">
-                <h1 className="texto">Registrar usuario</h1>
+                <h1 className="texto">Create new Account</h1>
+                {/*<span> Already Registered? </span> <Link to="/register">Login</Link>*/}
                 <div className="labelMail">
                     <label className="form-label">Mail</label>
                     <input
