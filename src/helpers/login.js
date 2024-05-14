@@ -13,24 +13,27 @@ const usuarios=[
     }
 ]
 
-export const validarUsuario=(mail,password,setMailError,setPasswordError)=>{
-   let aux1=false
-   let aux2=false
+export const validarUsuario = (mail, password, setMailError, setPasswordError) => {
+    let mailValid = false
+    let passwordValid = false
 
-    usuarios.map(usuario=>{
-        if(usuario.mail===mail){
-        aux1= true
-        }else{
-            setMailError('mail incorrecto')
+    usuarios.forEach(usuario => {
+        if (usuario.mail === mail) {
+            mailValid = true
         }
-        if(usuario.password===password){
-            aux2=true
-        }else{
-            setPasswordError('password incorrecto')
+        if (usuario.password === password) {
+            passwordValid = true
+        }
+        if (mailValid && passwordValid) {
+            return
         }
     })
-    if(aux1 && aux2){
+
+    if (mailValid && passwordValid) {
         setMailError('')
-        setMailError('')
-    }
+        setPasswordError('')
+    } else {
+        setMailError('mail incorrecto')
+        setPasswordError('password incorrecto')
+    } 
 }

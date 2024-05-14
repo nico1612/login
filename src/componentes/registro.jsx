@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { Link } from "react-router-dom"
 
 export const Registro = () => {
     const [correo, setCorreo] = useState('')
@@ -7,37 +8,39 @@ export const Registro = () => {
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [reingresePasswordError, setReingresePasswordError] = useState('')
+    const [name, setName] = useState('')
 
     const onInputChange = (value) => {
         setCorreo(value)
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        console.log(!correo.match(emailRegex))
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         if (!correo.match(emailRegex)) {
             setEmailError('Por favor, ingresa una dirección de correo electrónico válida.')
-        }else{
+        } else {
             setEmailError('')
         }
     }
 
     const handlePasswordChange = (value) => {
         setPassword(value)
-        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9a-zA-Z]).{8,}$/;
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9a-zA-Z]).{8,}$/
         if (!password.match(passwordRegex)) {
             setPasswordError('La contraseña debe ser alfanumérica, con al menos una letra mayúscula y un carácter especial.')
-        }
-        else{
+        } else {
             setPasswordError('')
         }
     }
 
     const handleReingresePasswordChange = (value) => {
         setReingresePassword(value)
-        if(password!==reingresePassword) {
+        if (password !== reingresePassword) {
             setReingresePasswordError('Las contraseñas no coinciden.')
-        }
-        else{
+        } else {
             setReingresePasswordError('')
         }
+    }
+
+    const handleName=(value)=>{
+        setName(value)
     }
 
     const handleSubmit = () => {
@@ -45,25 +48,34 @@ export const Registro = () => {
             setEmailError('Por favor, ingresa tu correo electrónico.')
         }
 
-
         if (password.trim() === '') {
             setPasswordError('Por favor ingrese su contraseña.')
         }
 
-        if(reingresePasswordError.trim()===''){
+        if (reingresePasswordError.trim() === '') {
             setReingresePasswordError('Por favor reingrese su contraseña.')
         }
 
-        if(emailError!=='' || passwordError!=='' || reingresePasswordError!==''){
+        if (emailError !== '' || passwordError !== '' || reingresePasswordError !== '') {
             return
         }
     }
 
     return (
-        <div className="divContainer">
-            <div className="divGeneral border border-dark">
+        <div className="flexContainer">
+            <div className="flexGeneral border border-dark">
                 <h1 className="texto">Create new Account</h1>
-                {/*<span> Already Registered? </span> <Link to="/register">Login</Link>*/}
+                <div className="linkRegistro"> AlreadyRegistered? <Link to="/">Login</Link></div>
+                <div className="labelMail">
+                    <label className="form-label">Name</label>
+                    <input
+                        type="email"
+                        className={`form-control ${emailError ? "input-error" : ""}`}
+                        value={name}
+                        onChange={(e) => handleName(e.target.value)}
+                    />
+                    {emailError && <div className="error">{emailError}</div>}
+                </div>
                 <div className="labelMail">
                     <label className="form-label">Mail</label>
                     <input
@@ -96,7 +108,7 @@ export const Registro = () => {
                     />
                     {reingresePasswordError && <div className="error">{reingresePasswordError}</div>}
                 </div>
-                <button className="btn btn-primary" onClick={handleSubmit}>Registrar</button>
+                <button className="btn btn-dark" onClick={handleSubmit}>Registrar</button>
             </div>
         </div>
     )

@@ -1,41 +1,22 @@
-.divContainer {
+.flexContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; 
+    height: 100vh;
 }
 
-.divGeneral {
+.flexGeneral {
     box-shadow: 0 0 0px rgba(0, 0, 0, 0.5);
     max-width: 500px; /* Modifica este valor según el tamaño deseado */
     padding: 60px; /* Añadido para separación del borde */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.inputMail{
-    position: relative;
-    bottom: 30px;
-}
-
-.labelMail{
-    position: relative;
-    bottom: 50px;
-}
-
-
-.inputPassword{
-    position: relative;
-    bottom: 30px;
-}
-
-.labelPassword{
-    position: relative;
-    left:70px;
-    bottom:20px;
-}
-
-.texto{
-    position: relative;
-    bottom: 50px;
+.inputMail, .labelMail, .inputPassword, .labelPassword, .texto, .linkRegistro {
+    margin-bottom: 20px;
 }
 
 .error {
@@ -66,4 +47,21 @@
 
 .password-input-container .toggle-password:focus {
     outline: none;
+}
+
+
+.volver{
+    position: relative;
+    left: 500px;
+    top:200px
+}
+
+
+.btn-volver {
+    border: 2px solid black;
+    color: black;
+}
+
+.btn-volver:hover{
+    border: 2px solid black;
 }
