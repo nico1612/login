@@ -65,7 +65,7 @@ export const Registro = () => {
         <div className="flexContainer">
             <div className="flexGeneral border border-dark">
                 <h1 className="texto">Create new Account</h1>
-                <div className="linkRegistro"> AlreadyRegistered? <Link to="/">Login</Link></div>
+                <div className="linkRegistro"> Already Registered? <Link to="/">Login</Link></div>
                 <div className="labelMail">
                     <label className="form-label">Name</label>
                     <input
