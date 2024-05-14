@@ -98,7 +98,7 @@ export const Registro = () => {
                     {passwordError && <div className="error">{passwordError}</div>}
                 </div>
                 <div className="inputPassword">
-                    <label className="form-label">Reingrese Password</label>
+                    <label className="form-label">Reenter password</label>
                     <input
                         type="password"
                         className={`form-control ${reingresePasswordError ? 'input-error' : ''}`}
