@@ -7,10 +7,12 @@ export const schema = yup.object().shape({
     correo: yup
         .string()
         .matches(emailRegex, "Por favor, ingresa una dirección de correo electrónico válida.")
+        .max(50, 'El mail no puede tener más de 50 caracteres.')
         .required("Por favor, ingresa tu correo electrónico."),
         password: yup
         .string()
         .required("Por favor ingrese su contraseña.")
+        .max(50, 'La contraseña no puede tener más de 50 caracteres.')
         .test(
             'min-length',
             'La contraseña debe tener una longitud mayor o igual a 8 caracteres.',
