@@ -67,7 +67,7 @@ export const Login = () => {
                 )}
               />
               <button type="button" className="toggle-password" onClick={togglePasswordVisibility}>
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                {!showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
             {errors.password && <div className="error">{errors.password.message}</div>}
