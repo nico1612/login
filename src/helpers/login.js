@@ -20,9 +20,9 @@ export const validarUsuario = (mail, password, setMailError, setPasswordError) =
     usuarios.forEach(usuario => {
         if (usuario.mail === mail) {
             mailValid = true
-        }
-        if (usuario.password === password) {
-            passwordValid = true
+            if (usuario.password === password) {
+                passwordValid = true
+            }
         }
         if (mailValid && passwordValid) {
             return
