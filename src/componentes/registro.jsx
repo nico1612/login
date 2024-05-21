@@ -37,7 +37,7 @@ export const Registro = () => {
 
   return (
     <div className="flexContainer">
-      <div className="flexGeneral border border-dark">
+      <div className="flexGeneralRegister border border-dark">
         <h1 className="texto">Create new Account</h1>
         <div className="linkRegistro">
           Already Registered? <Link to="/">Login</Link>

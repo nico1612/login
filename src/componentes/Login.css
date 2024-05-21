@@ -16,6 +16,18 @@
     position: relative;
     bottom: 150px;
   }
+
+  .flexGeneralRegister{
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: 100px;
+  }
   
   .labelMail,.inputPassword{
     width: 300px;
