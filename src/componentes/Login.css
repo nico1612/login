@@ -3,65 +3,106 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
-
-.flexGeneral {
+  }
+  
+  .flexGeneral {
     box-shadow: 0 0 0px rgba(0, 0, 0, 0.5);
-    max-width: 500px; /* Modifica este valor según el tamaño deseado */
-    padding: 60px; /* Añadido para separación del borde */
+    max-width: 500px;
+    padding: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.inputMail, .labelMail, .inputPassword, .labelPassword, .texto, .linkRegistro {
-    margin-bottom: 20px;
-}
-
-.error {
-    color: red;
-}
-
-.input-error {
-    border-color: red;
-}
-
-.password-input-container {
     position: relative;
-}
+    bottom: 150px;
+  }
+  
+  .labelMail,.inputPassword{
+    width: 300px;
+  }
 
-.password-input-container input {
-    padding-right: 30px;
-}
-
-.password-input-container .toggle-password {
+  .inputMail, .labelMail, .inputPassword, .labelPassword, .texto, .linkRegistro {
+    margin-bottom: 20px;
+  }
+  
+  .error {
+    color: red;
+  }
+  
+  .input-error {
+    border-color: red;
+  }
+  
+  .input-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .input-wrapper {
+    width: 100%;
+  }
+  
+  .caps-lock-icon {
     position: absolute;
-    right: 5px;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: red;
+  }
+  
+  .password-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .password-input-container input {
+    padding-right: 60px;
+  }
+  
+  .toggle-password {
+    position: absolute;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
     border: none;
     cursor: pointer;
-}
-
-.password-input-container .toggle-password:focus {
+  }
+  
+  .toggle-password:focus {
     outline: none;
-}
-
-
-.volver{
+  }
+  
+  .volver {
     position: relative;
     left: 500px;
-    top:200px
-}
-
-
-.btn-volver {
+    top: 200px;
+  }
+  
+  .btn-volver {
     border: 2px solid black;
     color: black;
+  }
+  
+  .btn-volver:hover {
+    border: 2px solid black;
+  }
+  
+
+.caps-lock-icon2{
+    position: absolute;
+    right: 175px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: red;
 }
 
-.btn-volver:hover{
-    border: 2px solid black;
+.caps-lock-icon3{
+    position: absolute;
+    right: 175px;
+    bottom: 65%;
+    transform: translateY(-50%);
+    color: red;
 }

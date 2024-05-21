@@ -1,115 +1,109 @@
-import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schemaRegister } from "../schema/validations";
+import { FaEye, FaEyeSlash, FaFont } from "react-icons/fa";
 
 export const Registro = () => {
-    const [correo, setCorreo] = useState('')
-    const [password, setPassword] = useState('')
-    const [reingresePassword, setReingresePassword] = useState('')
-    const [emailError, setEmailError] = useState('')
-    const [passwordError, setPasswordError] = useState('')
-    const [reingresePasswordError, setReingresePasswordError] = useState('')
-    const [name, setName] = useState('')
+  const [showPassword, setShowPassword] = useState(false);
+  const [showReingresePassword, setShowReingresePassword] = useState(false);
+  const [isCapsLockActive, setIsCapsLockActive] = useState(false);
 
-    const onInputChange = (value) => {
-        setCorreo(value)
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        if (!correo.match(emailRegex)) {
-            setEmailError('Por favor, ingresa una dirección de correo electrónico válida.')
-        } else {
-            setEmailError('')
-        }
+  const { handleSubmit, formState: { errors }, register } = useForm({
+    resolver: yupResolver(schemaRegister),
+    mode: 'onBlur',
+    defaultValues: {
+      correo: '',
+      password: ''
     }
+  });
 
-    const handlePasswordChange = (value) => {
-        setPassword(value)
-        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9a-zA-Z]).{8,}$/
-        if (!password.match(passwordRegex)) {
-            setPasswordError('La contraseña debe ser alfanumérica, con al menos una letra mayúscula y un carácter especial.')
-        } else {
-            setPasswordError('')
-        }
-    }
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
-    const handleReingresePasswordChange = (value) => {
-        setReingresePassword(value)
-        if (password !== reingresePassword) {
-            setReingresePasswordError('Las contraseñas no coinciden.')
-        } else {
-            setReingresePasswordError('')
-        }
-    }
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
-    const handleName=(value)=>{
-        setName(value)
-    }
+  const toggleReingresePasswordVisibility = () => {
+    setShowReingresePassword(!showReingresePassword);
+  };
 
-    const handleSubmit = () => {
-        if (correo.trim() === '') {
-            setEmailError('Por favor, ingresa tu correo electrónico.')
-        }
+  const handleCapsLock = (e) => {
+    setIsCapsLockActive(e.getModifierState("CapsLock"));
+  };
 
-        if (password.trim() === '') {
-            setPasswordError('Por favor ingrese su contraseña.')
-        }
-
-        if (reingresePasswordError.trim() === '') {
-            setReingresePasswordError('Por favor reingrese su contraseña.')
-        }
-
-        if (emailError !== '' || passwordError !== '' || reingresePasswordError !== '') {
-            return
-        }
-    }
-
-    return (
-        <div className="flexContainer">
-            <div className="flexGeneral border border-dark">
-                <h1 className="texto">Create new Account</h1>
-                <div className="linkRegistro"> Already Registered? <Link to="/">Login</Link></div>
-                <div className="labelMail">
-                    <label className="form-label">Name</label>
-                    <input
-                        type="email"
-                        className={`form-control ${emailError ? "input-error" : ""}`}
-                        value={name}
-                        onChange={(e) => handleName(e.target.value)}
-                    />
-                    {emailError && <div className="error">{emailError}</div>}
-                </div>
-                <div className="labelMail">
-                    <label className="form-label">Mail</label>
-                    <input
-                        type="email"
-                        className={`form-control ${emailError ? 'input-error' : ''}`}
-                        value={correo}
-                        onChange={(e) => onInputChange(e.target.value)}
-                    />
-                    {emailError && <div className="error">{emailError}</div>}
-                </div>
-                <div className="inputPassword">
-                    <label className="form-label">Password</label>
-                    <input
-                        type="password"
-                        className={`form-control ${passwordError ? 'input-error' : ''}`}
-                        aria-describedby="passwordHelpBlock"
-                        value={password}
-                        onChange={(e) => handlePasswordChange(e.target.value)}
-                    />
-                    {passwordError && <div className="error">{passwordError}</div>}
-                </div>
-                <div className="inputPassword">
-                    <label className="form-label">Reenter password</label>
-                    <input
-                        type="password"
-                        className={`form-control ${reingresePasswordError ? 'input-error' : ''}`}
-                        aria-describedby="passwordHelpBlock"
-                        value={reingresePassword}
-                        onChange={(e) => handleReingresePasswordChange(e.target.value)}
-                    />
-                    {reingresePasswordError && <div className="error">{reingresePasswordError}</div>}
-                </div>
-                <button className="btn btn-dark" onClick={handleSubmit}>Registrar</button>
-            </div>
+  return (
+    <div className="flexContainer">
+      <div className="flexGeneral border border-dark">
+        <h1 className="texto">Create new Account</h1>
+        <div className="linkRegistro">
+          Already Registered? <Link to="/">Login</Link>
         </div>
-    )
-}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="labelMail">
+            <label className="form-label">Name</label>
+            <input
+              type="text"
+              className={`form-control ${errors.name ? "input-error" : ""}`}
+              onKeyDown={handleCapsLock}
+              onKeyUp={handleCapsLock}
+              {...register("name")}
+            />
+            {isCapsLockActive && <FaFont className="caps-lock-icon3" />}
+            {errors.name && <div className="error">{errors.name.message}</div>}
+          </div>
+          <div className="labelMail">
+            <label className="form-label">Mail</label>
+            <input
+              type="email"
+              className={`form-control ${errors.correo ? "input-error" : ""}`}
+              {...register("correo")}
+              onKeyDown={handleCapsLock}
+              onKeyUp={handleCapsLock}
+            />
+            {isCapsLockActive && <FaFont className="caps-lock-icon2" />}
+            {errors.correo && <div className="error">{errors.correo.message}</div>}
+          </div>
+          <div className="inputPassword">
+            <label className="form-label">Password</label>
+            <div className="input-container">
+              <input
+                type={showPassword ? "text" : "password"}
+                className={`form-control ${errors.password ? "input-error" : ""}`}
+                {...register("password")}
+                onKeyDown={handleCapsLock}
+                onKeyUp={handleCapsLock}
+              />
+              {isCapsLockActive && <FaFont className="caps-lock-icon" />}
+              <button type="button" className="toggle-password" onClick={togglePasswordVisibility} aria-label="Toggle password visibility">
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              </button>
+            </div>
+            {errors.password && <div className="error">{errors.password.message}</div>}
+          </div>
+          <div className="inputPassword">
+            <label className="form-label">Reenter password</label>
+            <div className="input-container">
+              <input
+                type={showReingresePassword ? "text" : "password"}
+                className={`form-control ${errors.reingresePassword ? "input-error" : ""}`}
+                {...register("reingresePassword")}
+                onKeyDown={handleCapsLock}
+                onKeyUp={handleCapsLock}
+              />
+              {isCapsLockActive && <FaFont className="caps-lock-icon" />}
+              <button type="button" className="toggle-password" onClick={toggleReingresePasswordVisibility} aria-label="Toggle reenter password visibility">
+                {showReingresePassword ? <FaEye /> : <FaEyeSlash />}
+              </button>
+            </div>
+            {errors.reingresePassword && <div className="error">{errors.reingresePassword.message}</div>}
+          </div>
+          <button className="btn btn-dark" type="submit">Registrar</button>
+        </form>
+      </div>
+    </div>
+  );
+};

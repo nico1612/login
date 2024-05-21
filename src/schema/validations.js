@@ -1,41 +1,32 @@
 import * as yup from "yup"
 
-const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9a-zA-Z]).{7,}$/;
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-export const schema = yup.object().shape({
+export const schemaLogin = yup.object().shape({
     correo: yup
         .string()
-        .matches(emailRegex, "Por favor, ingresa una dirección de correo electrónico válida.")
-        .max(50, 'El mail no puede tener más de 50 caracteres.')
-        .required("Por favor, ingresa tu correo electrónico."),
+        .email("Por favor, ingresa una dirección de correo electrónico válida.")
+        .max(50, 'The Email cannot be more than 50 characters.')
+        .required("Please enter your Email ingresa tu correo electrónico."),
         password: yup
         .string()
-        .required("Por favor ingrese su contraseña.")
-        .max(50, 'La contraseña no puede tener más de 50 caracteres.')
-        .test(
-            'min-length',
-            'La contraseña debe tener una longitud mayor o igual a 8 caracteres.',
-            value => value && value.length >= 8
-        )
-        .test(
-            'uppercase',
-            'La contraseña debe tener al menos una letra mayúscula.',
-            value => value && /[A-Z]/.test(value)
-        )
-        .test(
-            'lowercase',
-            'La contraseña debe tener al menos una letra minúscula.',
-            value => value && /[a-z]/.test(value)
-        )
-        .test(
-            'number',
-            'La contraseña debe tener al menos un número.',
-            value => value && /\d/.test(value)
-        )
-        .test(
-            'special-char',
-            'La contraseña debe tener al menos un carácter especial.',
-            value => value && /[@$!%*?&.,/()[\]{}]/.test(value)
-        ),
-});
+        .required("Please enter your password.")
+        .max(50, 'The password cannot be more than 50 characters.')
+        .min(8, "Password must be at least 8 characters.")
+        .matches(/[A-Z]/, "Password must contain at least one uppercase letter.")
+        .matches(/[a-z]/, "Password must contain at least one lowercase letter.")
+        .matches(/\d/, "Password must contain at least one digit.")
+        .matches(/[@$!%*?&.,/()[\]{}]/, "Password must contain at least one special character."),
+})
+
+export const schemaRegister = yup.object().shape({
+    name: yup.string().required("Please enter your name.").max(50, 'The name cannot be more than 50 characters.'),
+    correo: yup.string().email("Please enter a valid email.").required("Please enter your email."),
+    password: yup
+      .string()
+      .required("Please enter your password.")
+      .min(8, "Password must be at least 8 characters.")
+      .matches(/[A-Z]/, "Password must contain at least one uppercase letter.")
+      .matches(/[a-z]/, "Password must contain at least one lowercase letter.")
+      .matches(/\d/, "Password must contain at least one digit.")
+      .matches(/[@$!%*?&.,/()[\]{}]/, "Password must contain at least one special character."),
+    reingresePassword: yup.string().oneOf([yup.ref("password"), null], "Passwords must match."),
+})  

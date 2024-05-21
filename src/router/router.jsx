@@ -5,11 +5,18 @@ import { RecordarPassword } from "../componentes/RecordarPassword"
 
 export const Router = () => {
   return (
-        <Routes>
-          <Route path="/" element={<Login/>}/>
-          <Route path="/register" element={<Registro/>}/>
-          <Route path="/password" element={<RecordarPassword/>}/>
-          <Route path="/*" element={<Navigate to="/" />} />
-        </Routes>
+    <>
+      <img
+        src="src/img/logo.png"
+        style={{ width: "100px", height: "auto" }}
+        alt="Descripción de la imagen" 
+      />
+      <Routes>
+        <Route path="/" element={<Login/>}/>
+        <Route path="/register" element={<Registro/>}/>
+        <Route path="/password" element={<RecordarPassword/>}/>
+        <Route path="/*" element={<Navigate to="/" />} />
+      </Routes>
+    </>
   )
 }
