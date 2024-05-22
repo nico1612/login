@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaFont } from "react-icons/fa";
 import "./Login.css";
 import { validarUsuario } from "../helpers/login";
@@ -16,6 +16,7 @@ export const Login = () => {
   const [usuarioRegistrado, setUsuarioRegistrado] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate=useNavigate()
 
   const { handleSubmit, formState: { errors }, register } = useForm({
     resolver: yupResolver(schemaLogin),
@@ -43,8 +44,17 @@ export const Login = () => {
     setIsCapsLockActive(e.getModifierState("CapsLock"));
   };
 
+  const navegar=() => {
+    setModalShow(false)
+    navigate('/TaskManajer')
+  }
   return (
     <>
+      <img
+        src="src/img/logo.png"
+        style={{ width: "100px", height: "auto" }}
+        alt="Descripción de la imagen" 
+      />
       <div className="flexContainer">
         <div className="flexGeneral border border-dark">
           <h1 className="texto">Login</h1>
@@ -92,7 +102,7 @@ export const Login = () => {
       </div>
       <MyModal
         show={modalShow}
-        handleClose={() => setModalShow(false)}
+        handleClose={navegar}
         texto="El usuario se encontró correctamente"
         boton="Ingresar"
         cabecera="Registrado"

@@ -1,0 +1,69 @@
+.App {
+    text-align: center;
+}
+
+h1 {
+    color: #343a40;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.table td, .table th {
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+.table thead th:first-child {
+    background-color: #00796b;
+    color: white; 
+}
+
+.table tbody td:first-child {
+    background-color: #81c784;
+}
+
+.table tbody td {
+    background-color: #c8e6c9;
+}
+
+.table {
+    border-collapse: separate;
+    border-spacing: 5px;
+}
+
+.table td, .table th {
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+.table thead th {
+    background-color: #00796b;
+    color: white;
+}
+
+.table tbody td:first-child {
+    background-color: #81c784;
+}
+
+.table tbody td {
+    background-color: #c8e6c9;
+}
+
+.new {
+    background-color: #80deea; 
+}
+  
+.in_process {
+    background-color: #ffd54f;
+}
+  
+.canceled {
+    background-color: #ef9a9a;
+}
+  
+.finished {
+    background-color: #a5d6a7;
+}
+    

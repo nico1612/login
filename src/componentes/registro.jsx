@@ -40,6 +40,11 @@ export const Registro = () => {
 
   return (
     <>
+        <img
+            src="src/img/logo.png"
+            style={{ width: "100px", height: "auto" }}
+            alt="Descripción de la imagen" 
+        />
         <div className="flexContainer">
             <div className="flexGeneralRegister border border-dark">
                 <h1 className="texto">Create new Account</h1>
