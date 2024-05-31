@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,10 +13,10 @@ export const Login = () => {
   const [mailError, setMailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [isCapsLockActive, setIsCapsLockActive] = useState(false);
-  const [usuarioRegistrado, setUsuarioRegistrado] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate=useNavigate()
+  const [usuarioRegistrados,setUsuarioRegistrados]=useState(false)
+  const navigate = useNavigate();
 
   const { handleSubmit, formState: { errors }, register } = useForm({
     resolver: yupResolver(schemaLogin),
@@ -29,12 +29,19 @@ export const Login = () => {
 
   const onSubmit = async (data) => {
     setIsLoading(true);
-    await validarUsuario(data.correo, data.password, setMailError, setPasswordError, setUsuarioRegistrado);
+    const isValidUser = await validarUsuario(data.correo, data.password, setMailError, setPasswordError);
     setIsLoading(false);
-    if (usuarioRegistrado) {
+    setUsuarioRegistrados(true)
+    if (isValidUser) {
+      setModalShow(true);
+    } 
+  };
+
+  useEffect(() => {
+    if (usuarioRegistrados) {
       setModalShow(true);
     }
-  };
+  }, [usuarioRegistrados]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -44,10 +51,11 @@ export const Login = () => {
     setIsCapsLockActive(e.getModifierState("CapsLock"));
   };
 
-  const navegar=() => {
-    setModalShow(false)
-    navigate('/TaskManajer')
-  }
+  const navegar = () => {
+    setModalShow(false);
+    navigate('/TaskManajer');
+  };
+
   return (
     <>
       <img
@@ -108,5 +116,5 @@ export const Login = () => {
         cabecera="Registrado"
       />
     </>
-  )
-}
+  );
+};

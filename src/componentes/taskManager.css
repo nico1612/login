@@ -1,3 +1,9 @@
+/* TaskManager.css */
+
+.task-manager-container {
+    position: relative;
+}
+
 .App {
     text-align: center;
 }
@@ -8,24 +14,6 @@ h1 {
 
 .container {
     margin-top: 20px;
-}
-
-.table td, .table th {
-    border: 1px solid #ccc;
-    padding: 8px;
-}
-
-.table thead th:first-child {
-    background-color: #00796b;
-    color: white; 
-}
-
-.table tbody td:first-child {
-    background-color: #81c784;
-}
-
-.table tbody td {
-    background-color: #c8e6c9;
 }
 
 .table {
@@ -66,4 +54,35 @@ h1 {
 .finished {
     background-color: #a5d6a7;
 }
-    
+
+.edit-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+}
+
+.edit-box {
+    text-align: center;
+}
+
+.spinner-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+}
+
+.logo-image {
+    position: relative;
+    bottom: 20px;
+    left:590px;
+    z-index: 1;
+}
+

@@ -29,4 +29,8 @@ export const schemaRegister = yup.object().shape({
       .matches(/\d/, "Password must contain at least one digit.")
       .matches(/[@$!%*?&.,/()[\]{}]/, "Password must contain at least one special character."),
     reingresePassword: yup.string().oneOf([yup.ref("password"), null], "Passwords must match."),
-})  
+})
+
+export const schemaRecuperarPassword=yup.object().shape({
+    correo: yup.string().email("Please enter a valid email.").required("Please enter your email."),
+})

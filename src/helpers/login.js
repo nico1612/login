@@ -1,32 +1,46 @@
-const usuarios = [
-  {
-    "mail": "ejemplo1@example.com",
-    "password": "Contraseña1$"
-  },
-  {
-    "mail": "usuario2@gmail.com",
-    "password": "Prueba#23@"
-  },
-  {
-    "mail": "correo3@hotmail.com",
-    "password": "Segura$123"
-  }
-];
-
 import { app } from "../config/firebase";
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-const auth = getAuth(app);
+import { sendPasswordResetEmail, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import axios from 'axios';
 
-export const validarUsuario = async (mail, password, setMailError, setPasswordError, setUsuarioRegistrado) => {
-  try {
-    const authentication = await signInWithEmailAndPassword(auth, mail, password);
-    if (authentication) {
+const auth = getAuth(app);
+const url= import.meta.env.VITE_APP_IP
+
+export const validarUsuario = async (mail, password, setMailError, setPasswordError) => {
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: { correo: mail, password: password },
+  }
+
+  const response = await axios(`${url}/api/auth/login`, options)
+  console.log(response)
+    
+    if (response?.data?.usuario) {
       setMailError('');
       setPasswordError('');
-      setUsuarioRegistrado(true);
+      return response?.data?.usuario;
     }
-  } catch {
-    setMailError('mail incorrecto');
-    setPasswordError('password incorrecto');
-  }
+
 };
+
+export const crearUsuario = async (mail, password, name) => {
+  try {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: { nombre: name, correo: mail,password: password},
+    } 
+
+    const response = await axios(`${url}/api/auth`, options)
+   console.log(response)
+    return true;
+  } catch (error) {
+    console.error('Error al crear usuario:', error);
+    return false;
+  }
+}

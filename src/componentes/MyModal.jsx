@@ -9,9 +9,6 @@ export const MyModal = ({ show, handleClose, texto, boton, cabecera }) => {
       </Modal.Header>
       <Modal.Body>{texto}</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Cerrar
-        </Button>
         <Button variant="primary" onClick={handleClose}>
           {boton}
         </Button>
