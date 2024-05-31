@@ -7,7 +7,7 @@ import { FaEye, FaEyeSlash, FaFont } from "react-icons/fa";
 import { MyModal } from "./MyModal";
 import { crearUsuario } from "../helpers/login";
 
-export const Registro = () => {
+export const Registro = (setUser) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showReingresePassword, setShowReingresePassword] = useState(false);
   const [isCapsLockActive, setIsCapsLockActive] = useState(false);
@@ -24,7 +24,7 @@ export const Registro = () => {
   });
 
   const onSubmit = async(data) => {
-    await crearUsuario(data.correo,data.password,data.name)
+    await crearUsuario(data.correo,data.password,data.name,setUser)
     setModalShow(true)
   };
 

@@ -26,7 +26,7 @@ export const validarUsuario = async (mail, password, setMailError, setPasswordEr
 
 };
 
-export const crearUsuario = async (mail, password, name) => {
+export const crearUsuario = async (mail, password, name,setUser) => {
   try {
     const options = {
       method: "POST",
@@ -37,7 +37,8 @@ export const crearUsuario = async (mail, password, name) => {
     } 
 
     const response = await axios(`${url}/api/auth`, options)
-   console.log(response)
+    setUser(response.data)
+   console.log(response.data)
     return true;
   } catch (error) {
     console.error('Error al crear usuario:', error);
