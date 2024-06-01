@@ -30,8 +30,7 @@ export const Login = () => {
   const onSubmit = async (data) => {
     setIsLoading(true);
     const isValidUser = await validarUsuario(data.correo, data.password, setMailError, setPasswordError);
-    setIsLoading(false);
-    setUsuarioRegistrados(true)
+    setUsuarioRegistrados(isValidUser!==false)
     if (isValidUser) {
       setModalShow(true);
     } 
@@ -53,7 +52,7 @@ export const Login = () => {
 
   const navegar = () => {
     setModalShow(false);
-    navigate('/TaskManajer');
+    navigate('/task-manager');
   };
 
   return (

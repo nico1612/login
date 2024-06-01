@@ -1,29 +1,29 @@
-import { app } from "../config/firebase";
-import { sendPasswordResetEmail, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import axios from 'axios';
 
-const auth = getAuth(app);
 const url= import.meta.env.VITE_APP_IP
 
 export const validarUsuario = async (mail, password, setMailError, setPasswordError) => {
+  try{
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: { correo: mail, password: password },
+    }
 
-  const options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data: { correo: mail, password: password },
-  }
+    const response = await axios(`${url}/api/auth/login`, options)
 
-  const response = await axios(`${url}/api/auth/login`, options)
-  console.log(response)
-    
     if (response?.data?.usuario) {
       setMailError('');
       setPasswordError('');
       return response?.data?.usuario;
     }
-
+  }catch{
+    setMailError('invalid mail');
+    setPasswordError('invalid password');
+    return false
+  }
 };
 
 export const crearUsuario = async (mail, password, name,setUser) => {

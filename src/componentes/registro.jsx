@@ -24,8 +24,8 @@ export const Registro = (setUser) => {
   });
 
   const onSubmit = async(data) => {
-    await crearUsuario(data.correo,data.password,data.name,setUser)
-    setModalShow(true)
+    const result=await crearUsuario(data.correo,data.password,data.name,setUser)
+    setModalShow(result!==false)
   };
 
   const togglePasswordVisibility = () => {
@@ -42,7 +42,7 @@ export const Registro = (setUser) => {
 
   const navegar = () => {
     setModalShow(false);
-    navigate('/TaskManajer');
+    navigate('/task-manager');
   };
 
 
@@ -124,9 +124,10 @@ export const Registro = (setUser) => {
       </div>
       <MyModal
         show={modalShow}
-        handleClose={navegar}
-        texto="El usuario se creo correctamente"
-        boton="Ingresar"
+        handleClose={modalShow?navegar:()=>setModalShow(false)}
+        texto={modalShow?
+          "User created successfully":"user already exists"}
+        button = {modalShow ? "Login" : "OK"}
         cabecera="Registrado"
       />
     </>
