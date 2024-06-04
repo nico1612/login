@@ -14,3 +14,14 @@ export const getTasks = () => {
        });
    });
 };
+/*
+export const getTasks=async()=>{
+    const url= import.meta.env.VITE_APP_IP
+    const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+    }
+      const response = await axios(`${url}/api/auth/login`, options)
+}*/

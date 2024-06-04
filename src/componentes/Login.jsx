@@ -99,11 +99,11 @@ export const Login = () => {
               {passwordError && <div className="error">{passwordError}</div>}
             </div>
             <button type="submit" className="btn btn-dark left" disabled={isLoading}>
-              {isLoading ? "Cargando..." : "Login"}
+              {isLoading ? "Loading..." : "Login"}
             </button>
           </form>
           <div className="left2">
-            Forgot your <Link to="/password">password</Link>?
+            Forgot your <Link to="/change-password">password</Link>?
           </div>
         </div>
       </div>

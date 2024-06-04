@@ -8,6 +8,8 @@ export const TaskManager = () => {
     const [loading, setLoading] = useState(true);
     const [selectedTask, setSelectedTask] = useState(null);
     const [filter, setFilter] = useState('all');
+    const [newTask, setNewTask] = useState({ description: '', assigned: '', status: 'new' });
+    const [showNewTaskForm, setShowNewTaskForm] = useState(false);
 
     const callTask = async () => {
         try {
@@ -80,6 +82,19 @@ export const TaskManager = () => {
         return filter === 'all' || task.status === filter;
     };
 
+    const handleNewTaskChange = (e) => {
+        const { name, value } = e.target;
+        setNewTask(prevState => ({ ...prevState, [name]: value }));
+    };
+
+    const handleNewTaskSubmit = (e) => {
+        e.preventDefault();
+        const newTaskWithId = { ...newTask, id: tasks.length+1, created: new Date().toISOString(), completed: '' };
+        setTasks([...tasks, newTaskWithId]);
+        setNewTask({ description: '', assigned: '', status: 'new' });
+        setShowNewTaskForm(false);
+    };
+
     return (
         <div className="task-manager-container">
             <div className="App">
@@ -95,6 +110,28 @@ export const TaskManager = () => {
                     <option value="finished" className="finished">Finished</option>
                 </select>
                 <div className="container mt-5">
+                    <button onClick={() => setShowNewTaskForm(!showNewTaskForm)}>Create New Task</button>
+                    {showNewTaskForm && (
+                        <form onSubmit={handleNewTaskSubmit} className="new-task-form">
+                            <input
+                                type="text"
+                                name="description"
+                                value={newTask.description}
+                                onChange={handleNewTaskChange}
+                                placeholder="Description"
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="assigned"
+                                value={newTask.assigned}
+                                onChange={handleNewTaskChange}
+                                placeholder="Assigned To"
+                                required
+                            />
+                            <button type="submit">Add Task</button>
+                        </form>
+                    )}
                     <table className="table table-striped table-bordered">
                         <thead className="thead-dark">
                             <tr>
