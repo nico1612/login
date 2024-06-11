@@ -1,4 +1,3 @@
-// src/stores/auth/thunks.js
 import axios from "axios";
 import { checkingCredentials, login, logout, setError } from "./auth";
 
@@ -66,13 +65,18 @@ export const crearUsuario = (mail, password, name) => async (dispatch) => {
     }
 };
 
-export const startLogout = () => async (dispatch) => {
+export const startLogout = (correo) => async (dispatch) => {
     try {
-        // Aquí puedes realizar cualquier limpieza adicional que necesites,
-        // como eliminar tokens de autenticación de localStorage.
         localStorage.removeItem("usuario");
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            data: { correo },
+        };
 
-        // Despachar la acción de logout
+        await axios(`${url}/api/auth/logout`, options)
         dispatch(logout());
 
         return { ok: true, msg: "Logged out successfully" };

@@ -8,7 +8,6 @@ export const authSlice = createSlice({
         nombre: null,
         correo: null,
         error: false,
-        consultas: 0, // Incluyendo consultas si se utiliza en actualizar
     },
     reducers: {
         login: (state, { payload }) => {

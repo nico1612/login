@@ -3,7 +3,7 @@ import './TaskManager.css';
 import { Oval } from 'react-loader-spinner';
 import { useNavigate } from "react-router-dom";
 import { deleteTask, getTasks, saveTask, updateTask } from "../helpers/obtenerDatos";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startLogout } from "../stores/auth/thunks";
 
 export const TaskManager = () => {
@@ -16,6 +16,7 @@ export const TaskManager = () => {
     const [description, setDescription] = useState('');
     const navigate=useNavigate()
     const dispatch=useDispatch()
+    const correo = useSelector((state) => state.auth.correo);
 
     const handleDescriptionChange = (newDescription) => {
         setDescription(newDescription);
@@ -117,7 +118,7 @@ export const TaskManager = () => {
     };
 
     const handleLogout = async () => {
-        dispatch(startLogout())
+        dispatch(startLogout(correo))
         navigate('/')
     };
 
