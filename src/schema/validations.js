@@ -3,9 +3,9 @@ import * as yup from "yup"
 export const schemaLogin = yup.object().shape({
     correo: yup
         .string()
-        .email("Por favor, ingresa una dirección de correo electrónico válida.")
+        .email("Please enter a valid email address.")
         .max(50, 'The Email cannot be more than 50 characters.')
-        .required("Please enter your Email ingresa tu correo electrónico."),
+        .required("Please enter your Email."),
         password: yup
         .string()
         .required("Please enter your password.")
