@@ -5,15 +5,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaRegister } from "../schema/validations";
 import { FaEye, FaEyeSlash, FaFont } from "react-icons/fa";
 import { MyModal } from "./MyModal";
-import { crearUsuario } from "../helpers/login";
+import { crearUsuario } from "../stores/auth/thunks";
+import { useDispatch } from "react-redux";
 
-export const Registro = (setUser) => {
+export const Registro = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showReingresePassword, setShowReingresePassword] = useState(false);
   const [isCapsLockActive, setIsCapsLockActive] = useState(false);
   const [modalShow, setModalShow] = useState(false);
+  const [datos,setDatos]=useState(true)
   const navigate = useNavigate();
-
+  const dispatch=useDispatch()
   const { handleSubmit, formState: { errors }, register } = useForm({
     resolver: yupResolver(schemaRegister),
     mode: 'onBlur',
@@ -24,8 +26,9 @@ export const Registro = (setUser) => {
   });
 
   const onSubmit = async(data) => {
-    const result=await crearUsuario(data.correo,data.password,data.name,setUser)
+    const result=await dispatch(crearUsuario(data.correo,data.password,data.name))
     setModalShow(result!==false)
+    setDatos(result.ok)
   };
 
   const togglePasswordVisibility = () => {
@@ -124,10 +127,10 @@ export const Registro = (setUser) => {
       </div>
       <MyModal
         show={modalShow}
-        handleClose={modalShow?navegar:()=>setModalShow(false)}
-        texto={modalShow?
+        handleClose={datos?navegar:()=>setModalShow(false)}
+        texto={datos?
           "User created successfully":"user already exists"}
-        button = {modalShow ? "Login" : "OK"}
+        boton = {datos ? "Login" : "OK"}
         cabecera="Registrado"
       />
     </>

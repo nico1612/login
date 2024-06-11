@@ -44,6 +44,11 @@ export const RecordarPassword = () => {
 
   return (
     <>
+      <img
+        src="src/img/logo.png"
+        style={{ width: "100px", height: "auto" }}
+        alt="Descripción de la imagen" 
+      />
       <div className="flexContainer">
         <div className="flexGeneral border border-dark">
           <h1>Forgot Password</h1>

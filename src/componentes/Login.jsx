@@ -1,12 +1,14 @@
+// src/componentes/Login.js
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaFont } from "react-icons/fa";
 import "./Login.css";
-import { validarUsuario } from "../helpers/login";
 import { schemaLogin } from "../schema/validations";
 import { MyModal } from "./MyModal";
+import { startLogin } from "../stores/auth/thunks";
+import { useDispatch } from "react-redux";
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,8 +17,10 @@ export const Login = () => {
   const [isCapsLockActive, setIsCapsLockActive] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [usuarioRegistrados,setUsuarioRegistrados]=useState(false)
+  const [usuarioRegistrados, setUsuarioRegistrados] = useState(false);
+  const [msg, setMsg] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { handleSubmit, formState: { errors }, register } = useForm({
     resolver: yupResolver(schemaLogin),
@@ -29,11 +33,17 @@ export const Login = () => {
 
   const onSubmit = async (data) => {
     setIsLoading(true);
-    const isValidUser = await validarUsuario(data.correo, data.password, setMailError, setPasswordError);
-    setUsuarioRegistrados(isValidUser!==false)
+    const isValidUser = await dispatch(startLogin(data.correo, data.password, setMailError, setPasswordError));
     if (isValidUser) {
+      setUsuarioRegistrados(isValidUser.ok);
+      setMsg(isValidUser.msg);
       setModalShow(true);
-    } 
+    } else {
+      setUsuarioRegistrados(false);
+      setMsg("Login failed");
+      setModalShow(true);
+    }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -109,9 +119,9 @@ export const Login = () => {
       </div>
       <MyModal
         show={modalShow}
-        handleClose={navegar}
-        texto="El usuario se encontró correctamente"
-        boton="Ingresar"
+        handleClose={usuarioRegistrados ? navegar : () => setModalShow(false)}
+        texto={msg}
+        boton={usuarioRegistrados ? "Enter" : "Back"}
         cabecera="Registrado"
       />
     </>
