@@ -53,14 +53,12 @@ export const crearUsuario = (mail, password, name) => async (dispatch) => {
         const response = await axios(`${url}/api/auth`, options);
         if (response?.data?.usuario) {
             dispatch(login(response.data));
-            console.log(response)
             return { ok: true, msg: "User created successfully" };
         } else {
             return { ok: false, msg: "User creation failed" };
         }
     } catch (error) {
         console.error("Error al crear usuario:", error);
-        console.log(error.response?.data)
         return { ok: false, msg: error.response?.data?.msg || "Error creating user" };
     }
 };
