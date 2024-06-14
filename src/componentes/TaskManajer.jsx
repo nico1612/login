@@ -126,7 +126,7 @@ export const TaskManager = () => {
         dispatch(startLogout(correo))
         navigate('/')
     };
-console.log(tasks)
+
     return (
         <div className="task-manager-container">
             <div className="App">
