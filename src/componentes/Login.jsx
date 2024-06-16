@@ -86,7 +86,7 @@ export const Login = () => {
                 onKeyDown={handleCapsLock}
                 onKeyUp={handleCapsLock}
               />
-              {isCapsLockActive && <FaFont className="caps-lock-icon" />}
+              {isCapsLockActive && <FaFont className="caps-lock-icon4" />}
               {errors.correo && <div className="error">{errors.correo.message}</div>}
               {mailError && <div className="error">{mailError}</div>}
             </div>

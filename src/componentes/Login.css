@@ -63,6 +63,14 @@
     color: red;
   }
   
+  .caps-lock-icon4 {
+    position: absolute;
+    right: 100px;
+    top: 45%;
+    transform: translateY(-50%);
+    color: red;
+  }
+  
   .password-input-container {
     position: relative;
     display: flex;
@@ -105,16 +113,16 @@
 
 .caps-lock-icon2{
     position: absolute;
-    right: 175px;
-    top: 50%;
+    right: 125px;
+    top: 51.5%;
     transform: translateY(-50%);
     color: red;
 }
 
 .caps-lock-icon3{
     position: absolute;
-    right: 175px;
-    bottom: 65%;
+    right: 125px;
+    bottom: 63.5%;
     transform: translateY(-50%);
     color: red;
 }
